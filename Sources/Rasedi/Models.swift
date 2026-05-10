@@ -34,6 +34,40 @@ public struct CreatePaymentPayload: Codable {
     }
 }
 
+public struct PaymentHistoryItem: Codable {
+    public var referenceCode: String
+    public var status: PaymentStatus
+    public var amount: String
+    public var gateway: String?
+    public var paidAt: String?
+    public var payoutAmount: String?
+    public var serviceFeeAmount: String?
+    public var gatewayFeeAmount: String?
+    public var expiresAt: String?
+    
+    public init(
+        referenceCode: String,
+        status: PaymentStatus,
+        amount: String,
+        gateway: String? = nil,
+        paidAt: String? = nil,
+        payoutAmount: String? = nil,
+        serviceFeeAmount: String? = nil,
+        gatewayFeeAmount: String? = nil,
+        expiresAt: String? = nil
+    ) {
+        self.referenceCode = referenceCode
+        self.status = status
+        self.amount = amount
+        self.gateway = gateway
+        self.paidAt = paidAt
+        self.payoutAmount = payoutAmount
+        self.serviceFeeAmount = serviceFeeAmount
+        self.gatewayFeeAmount = gatewayFeeAmount
+        self.expiresAt = expiresAt
+    }
+}
+
 public struct PaymentResponseBody: Codable {
     public var referenceCode: String
     public var amount: String
@@ -42,6 +76,7 @@ public struct PaymentResponseBody: Codable {
     public var redirectUrl: String
     public var status: PaymentStatus
     public var payoutAmount: String?
+    public var history: [PaymentHistoryItem]?
     
     public init(
         referenceCode: String,
@@ -50,7 +85,8 @@ public struct PaymentResponseBody: Codable {
         paidAt: String? = nil,
         redirectUrl: String,
         status: PaymentStatus,
-        payoutAmount: String? = nil
+        payoutAmount: String? = nil,
+        history: [PaymentHistoryItem]? = nil
     ) {
         self.referenceCode = referenceCode
         self.amount = amount
@@ -59,6 +95,7 @@ public struct PaymentResponseBody: Codable {
         self.redirectUrl = redirectUrl
         self.status = status
         self.payoutAmount = payoutAmount
+        self.history = history
     }
 }
 
